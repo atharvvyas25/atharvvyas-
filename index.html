@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>AT·OS — Atharv Vyas</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="styles.css" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@500;600&display=swap"
+    rel="stylesheet">
+</head>
+
+<body>
+  <!-- BOOT SCREEN -->
+  <div id="boot-screen">
+    <div class="boot-inner">
+      <div class="boot-logo">Atharv Vyas</div>
+      <div class="boot-text">
+        <span>Booting OS...</span>
+        <span>Loading interface...</span>
+        <span class="boot-sub">crafted by Atharv Vyas</span>
+      </div>
+      <div class="boot-progress">
+        <div class="boot-bar"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CURSOR GLOW -->
+  <div id="cursor-blob"></div>
+
+  <!-- FIXED TOP BAR -->
+  <header id="top-bar">
+    <div class="top-left">
+      <span class="logo-dot"></span>
+      <span class="top-title">Atharv</span>
+      <span class="top-sub">personal interface</span>
+    </div>
+    <div class="top-right">
+      <span class="pill">Dev</span>
+      <span class="pill">Music</span>
+      <span class="pill">Nature</span>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO (NEW) -->
+    <section id="hero" class="section hero-section">
+      <div class="hero-inner">
+
+        <!-- LEFT: TEXT -->
+        <div class="hero-left">
+          <p class="hero-eyebrow">INTERFACE · AT·OS</p>
+
+          <h1 class="hero-title">
+            <span class="hero-hi"> <span>Hi,</span> I'm</span>
+            <span class="hero-name">Atharv Vyas</span>
+          </h1>
+
+          <p class="hero-role">
+            A creative web developer crafting animated, OS-inspired experiences for the web.
+          </p>
+
+          <div class="hero-buttons">
+            <button class="primary-btn" data-target="#projects">
+              View Projects
+            </button>
+            <button class="ghost-btn" data-target="#about">
+              About Me
+            </button>
+          </div>
+
+          <!-- particles around text -->
+          <div id="hero-particles"></div>
+        </div>
+
+        <!-- RIGHT: IMAGE + COLLAGE -->
+        <div class="hero-right">
+          <div class="hero-scene">
+            <div class="hero-collage">
+              <div class="collage-card card-1">modern<br>web</div>
+              <div class="collage-card card-2">{ code }</div>
+              <div class="collage-card card-3">UI</div>
+              <div class="collage-card card-4">motion</div>
+            </div>
+
+            <div class="hero-photo-frame">
+              <div class="hero-photo-bg"></div>
+              <div class="hero-photo-foreground">
+                <!-- apni photo ka correct path de do yahan -->
+                <img src="public/images/atharv-hero01.jpg" alt="Atharv Vyas" />
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <section id="scroll-headline">
+      <div class="scroll-text">
+        <span>CREATIVE DEVELOPER • ATHARV VYAS • INTERFACES • ANIMATIONS •</span>
+      </div>
+    </section>
+
+
+    <!-- ABOUT -->
+    <section id="about" class="section">
+      <div class="section-header">
+        <p class="section-label">01 · About</p>
+        <h2>Inside AT·OS</h2>
+      </div>
+      <div class="section-body about-layout">
+        <p>
+          I’m Atharv — a MERN-focused web developer, music addict and nature
+          lover. I enjoy interfaces that feel like products, not pages: minimal,
+          motion-driven and slightly unexpected.
+        </p>
+        <div class="about-grid">
+          <div class="about-card glass">
+            <span class="label">Path</span>
+            <p>BCA · DAVV University<br />MCA · SAGE University</p>
+          </div>
+          <div class="about-card glass">
+            <span class="label">Currently building</span>
+            <p>Animated UIs, AI-powered tools and real-time web apps.</p>
+          </div>
+          <div class="about-card glass">
+            <span class="label">Outside code</span>
+            <p>Writing songs, exploring the sky, collecting moments.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section id="projects" class="section">
+      <div class="section-header">
+        <p class="section-label">02 · Projects</p>
+        <h2>Apps running on me</h2>
+      </div>
+      <div class="section-body projects-grid">
+        <article class="project glass">
+          <header>
+            <h3>SyncStream</h3>
+            <span class="tag">Real-time MERN</span>
+          </header>
+          <p>
+            Listen to music or watch movies in perfect sync with friends, no
+            matter where they are.
+          </p>
+          <div class="meta">
+            <span>MERN</span>
+            <span>WebSockets</span>
+            <span>Auth</span>
+          </div>
+        </article>
+
+        <article class="project glass">
+          <header>
+            <h3>InsightMeter AI Suite</h3>
+            <span class="tag">AI Dashboard</span>
+          </header>
+          <p>
+            A suite of AI-powered tools to analyse, summarize and automate tasks
+            through a clean, modern interface.
+          </p>
+          <div class="meta">
+            <span>React</span>
+            <span>AI APIs</span>
+            <span>Dashboard</span>
+          </div>
+        </article>
+
+        <article class="project glass">
+          <header>
+            <h3>Primestyle Clothing</h3>
+            <span class="tag">Brand Web</span>
+          </header>
+          <p>
+            A future-proof site for clothing manufacturing & customisation with
+            a focus on minimal, premium UI.
+          </p>
+          <div class="meta">
+            <span>Landing</span>
+            <span>Branding</span>
+            <span>Animations</span>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- SKILLS -->
+    <section id="skills" class="section">
+      <div class="section-header">
+        <p class="section-label">03 · Skills</p>
+        <h2>System capabilities</h2>
+      </div>
+      <div class="section-body skills-grid">
+        <div class="skill-block glass">
+          <span class="label">Core</span>
+          <ul>
+            <li>HTML, CSS, JavaScript</li>
+            <li>React · Responsive UIs</li>
+          </ul>
+        </div>
+        <div class="skill-block glass">
+          <span class="label">Backend & DB</span>
+          <ul>
+            <li>Node.js, Express</li>
+            <li>MongoDB, REST APIs</li>
+          </ul>
+        </div>
+        <div class="skill-block glass">
+          <span class="label">Extras</span>
+          <ul>
+            <li>GSAP animations</li>
+            <li>Git & GitHub</li>
+            <li>Basic deployment (Netlify / Vercel)</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- MUSIC -->
+    <section id="music" class="section">
+      <div class="section-header">
+        <p class="section-label">04 · Music</p>
+        <h2>Soundtrack of AT·OS</h2>
+      </div>
+      <div class="section-body music-layout">
+        <div class="music-card glass">
+          <span class="label">Now playing (concept)</span>
+          <h3>Jab Pehli Baar</h3>
+          <p>Romantic Hindi track written by me, visualized with anime vibes.</p>
+
+          <audio controls style="width: 100%;">
+            <source src="" type="audio/mpeg">
+            Your browser does not support the audio element.
+          </audio>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="section">
+      <div class="section-header">
+        <p class="section-label">05 · Contact</p>
+        <h2>Ping AT·OS</h2>
+      </div>
+      <div class="section-body contact-layout">
+        <p>
+          Want to collaborate on a project, product or idea?<br />
+          I’m open to internships, freelancing and full-time opportunities.
+        </p>
+        <div class="contact-actions">
+          <a href="mailto:iamatharvvyas@gmail.com" class="primary-btn">
+            Email me
+          </a>
+          <a href="https://github.com/atharvvyas25" target="_blank" class="ghost-btn">
+            GitHub
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- SETTINGS -->
+    <section id="settings" class="section">
+      <div class="section-header">
+        <p class="section-label">06 · Settings</p>
+        <h2>AT·OS Preferences</h2>
+      </div>
+      <div class="section-body">
+        <div class="glass settings-card">
+          <p>Coming soon: theme toggle, wallpapers and more UI tweaks.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <span>AT·OS · Designed & built by Atharv Vyas · 2025</span>
+  </footer>
+
+  <!-- GSAP -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="script.js"></script>
+</body>
+
+</html>
