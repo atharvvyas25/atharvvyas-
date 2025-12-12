@@ -107,6 +107,9 @@ function setupAnimations() {
       ".hero-scene",
       { y: 40, opacity: 0, duration: 0.9, ease: "power3.out" },
       "-=0.6"
+
+
+
     );
 
   // sections reveal
@@ -144,6 +147,144 @@ function setupAnimations() {
       });
     }
   });
+  // ABOUT — Typing Animation
+  function typeAboutTitle() {
+    const text = "Inside AT·OS";
+    const target = document.querySelector(".about-title-text");
+    if (!target) return;
+
+    target.innerHTML = "";
+    let i = 0;
+
+    function typing() {
+      if (i < text.length) {
+        target.innerHTML += text.charAt(i);
+        i++;
+        setTimeout(typing, 45);
+      }
+    }
+    typing();
+  }
+
+  ScrollTrigger.create({
+    trigger: "#about",
+    start: "top 85%",
+    once: true,
+    onEnter: () => typeAboutTitle()
+  });
+
+  // ABOUT — Floating Cards Animation (scroll-triggered entrance)
+  gsap.from(".about-card-anim", {
+    scrollTrigger: {
+      trigger: "#about",
+      start: "top 70%",
+      toggleActions: "play none none none"
+    },
+    y: 30,
+    opacity: 0,
+    duration: 0.8,
+    stagger: 0.1,
+    ease: "power3.out"
+  });
+
+  // ==========================
+  // ABOUT SECTION ANIMATIONS
+  // ==========================
+
+  // Typing effect - REMOVED DUPLICATE (already defined above at line 151)
+  // Only one typeAboutTitle function should exist
+  // Calling the first instance at line 173
+
+  // ==REMOVED DUPLICATE: Floating cards animation handled above==
+
+  // ==========================
+  // ABOUT — ORBITAL ANIMATION
+  // ==========================
+
+  function setupOrbitalAnimation() {
+    const aboutSection = document.getElementById("about");
+    const orbitalItems = document.querySelectorAll(".orbit-item");
+
+    if (!aboutSection || orbitalItems.length === 0) return;
+
+    // Base dimensions - adjusted for right-side layout
+    const baseRadius = window.innerWidth > 1024 ? 220 : window.innerWidth > 768 ? 140 : window.innerWidth > 480 ? 100 : 80;
+    let orbitRadius = baseRadius;
+
+    // Update orbit radius on resize
+    const updateOrbitRadius = () => {
+      orbitRadius = window.innerWidth > 1024 ? 220 : window.innerWidth > 768 ? 140 : window.innerWidth > 480 ? 110 : 75;
+    };
+    window.addEventListener("resize", updateOrbitRadius);
+
+    // Position each orbit item in a circle
+    orbitalItems.forEach((item, index) => {
+      const angle = (index / orbitalItems.length) * Math.PI * 2 - Math.PI / 2;
+      const x = Math.cos(angle) * orbitRadius;
+      const y = Math.sin(angle) * orbitRadius;
+
+      gsap.set(item, {
+        x: x,
+        y: y
+      });
+
+      // Micro-floating animation (idle motion)
+      const floatDuration = 4 + Math.random() * 2;
+      const floatDistance = window.innerWidth > 768 ? 4 + Math.random() * 5 : 3 + Math.random() * 3;
+
+      gsap.to(item, {
+        x: x + (Math.random() - 0.5) * floatDistance,
+        y: y + (Math.random() - 0.5) * floatDistance,
+        duration: floatDuration,
+        repeat: -1,
+        yoyo: true,
+        ease: "sine.inOut"
+      });
+    });
+
+    // Scroll-driven orbital rotation with continuous spin
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: "#about",
+        start: "top 40%",
+        end: "bottom 40%",
+        scrub: 1.5,
+        markers: false
+      }
+    });
+
+    tl.to(".orbit-container", {
+      rotation: 360,
+      ease: "none"
+    }, 0);
+
+    // Scroll-linked orbit item animations
+    gsap.from(orbitalItems, {
+      scrollTrigger: {
+        trigger: "#about",
+        start: "top 75%"
+      },
+      scale: 0.3,
+      opacity: 0,
+      duration: 0.8,
+      stagger: 0.08,
+      ease: "power2.out"
+    });
+
+    // Optional: Subtle scale and opacity pulse on scroll
+    gsap.to(orbitalItems, {
+      scrollTrigger: {
+        trigger: "#about",
+        start: "top 60%",
+        end: "bottom 60%",
+        scrub: 1
+      },
+      opacity: 0.6,
+      ease: "sine.inOut"
+    });
+  }
+
+  setupOrbitalAnimation();
 
   // project hover lift
   const projects = document.querySelectorAll(".project");
@@ -228,22 +369,183 @@ function setupHeroFX() {
   });
 }
 
+// Scroll-driven infinite marquee
+function setupInfiniteMarquee() {
+  gsap.registerPlugin(ScrollTrigger);
+
+  const scrollText = document.querySelector(".scroll-text");
+  if (!scrollText) return;
+
+  gsap.to(scrollText, {
+    x: "-25%",
+    ease: "none",
+    scrollTrigger: {
+      trigger: "#scroll-headline",
+      start: "top bottom",
+      end: "bottom top",
+      scrub: 1,
+      onUpdate: (self) => {
+        if (self.progress >= 1) {
+          gsap.set(scrollText, { x: "0%" });
+        }
+      }
+    }
+  });
+}
+
+// Card animations with GSAP
+function setupCardAnimations() {
+  const cards = document.querySelectorAll(".about-card");
+  
+  // Entrance animation on scroll
+  gsap.from(cards, {
+    scrollTrigger: {
+      trigger: "#about",
+      start: "top 70%",
+      toggleActions: "play none none none"
+    },
+    y: 40,
+    opacity: 0,
+    duration: 0.8,
+    stagger: 0.15,
+    ease: "power3.out"
+  });
+
+  // Hover animations
+  cards.forEach((card, index) => {
+    card.addEventListener("mouseenter", () => {
+      // Lift up and glow
+      gsap.to(card, {
+        y: -15,
+        boxShadow: "0 20px 40px rgba(100, 120, 255, 0.3)",
+        duration: 0.4,
+        ease: "power2.out"
+      });
+
+      // Icon pop animation
+      const icon = card.querySelector(".card-icon");
+      if (icon) {
+        gsap.to(icon, {
+          scale: 1.3,
+          rotation: 8,
+          duration: 0.4,
+          ease: "back.out"
+        });
+      }
+
+      // Text highlight glow
+      const label = card.querySelector(".card-label");
+      if (label) {
+        gsap.to(label, {
+          color: "#7896FF",
+          duration: 0.3
+        });
+      }
+    });
+
+    card.addEventListener("mouseleave", () => {
+      // Return to normal
+      gsap.to(card, {
+        y: 0,
+        boxShadow: "0 8px 24px rgba(0, 0, 0, 0.08)",
+        duration: 0.4,
+        ease: "power2.out"
+      });
+
+      // Reset icon
+      const icon = card.querySelector(".card-icon");
+      if (icon) {
+        gsap.to(icon, {
+          scale: 1,
+          rotation: 0,
+          duration: 0.4,
+          ease: "back.out"
+        });
+      }
+
+      // Reset label color
+      const label = card.querySelector(".card-label");
+      if (label) {
+        gsap.to(label, {
+          color: "#111",
+          duration: 0.3
+        });
+      }
+    });
+
+    // Click ripple effect
+    card.addEventListener("click", function() {
+      const rect = this.getBoundingClientRect();
+      const x = event.clientX - rect.left;
+      const y = event.clientY - rect.top;
+
+      // Create ripple element
+      const ripple = document.createElement("div");
+      ripple.style.position = "absolute";
+      ripple.style.left = x + "px";
+      ripple.style.top = y + "px";
+      ripple.style.width = "10px";
+      ripple.style.height = "10px";
+      ripple.style.borderRadius = "50%";
+      ripple.style.backgroundColor = "rgba(120, 150, 255, 0.6)";
+      ripple.style.pointerEvents = "none";
+      ripple.style.zIndex = "10";
+      this.style.position = "relative";
+      this.style.overflow = "hidden";
+      this.appendChild(ripple);
+
+      // Animate ripple
+      gsap.to(ripple, {
+        width: 400,
+        height: 400,
+        opacity: 0,
+        duration: 0.8,
+        ease: "power2.out",
+        onComplete: () => {
+          ripple.remove();
+        }
+      });
+    });
+  });
+}
+
+// Advanced card gradient animations
+function setupCardGradients() {
+  const cards = document.querySelectorAll(".about-card");
+  
+  cards.forEach((card) => {
+    // Create internal gradient animation on mouse move
+    card.addEventListener("mousemove", (e) => {
+      const rect = card.getBoundingClientRect();
+      const x = ((e.clientX - rect.left) / rect.width) * 100;
+      const y = ((e.clientY - rect.top) / rect.height) * 100;
+
+      // Subtle light shine effect
+      gsap.to(card, {
+        "--shine-x": x + "%",
+        "--shine-y": y + "%",
+        duration: 0.5,
+        overwrite: "auto"
+      });
+    });
+
+    card.addEventListener("mouseleave", () => {
+      gsap.to(card, {
+        "--shine-x": "50%",
+        "--shine-y": "50%",
+        duration: 0.5
+      });
+    });
+  });
+}
+
+// Call functions
 window.addEventListener("load", () => {
   bootAnimation();
   setupNavTriggers();
   setupAnimations();
   setupHeroFX();
-});
-
-
-// Scroll-driven headline movement
-gsap.to(".scroll-text", {
-  x: "-100%",
-  ease: "none",
-  scrollTrigger: {
-    trigger: "#scroll-headline",
-    start: "top bottom",
-    end: "bottom top",
-    scrub: 1
-  }
+  setupInfiniteMarquee();
+  setupCardAnimations();
+  setupCardGradients();
 });

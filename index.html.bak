@@ -104,127 +104,93 @@
       </div>
     </section>
 
+
     <!-- ABOUT -->
-    <section id="about" class="section about-section">
-      <div class="about-container">
-        
-        <!-- LEFT SIDE: Content -->
-        <div class="about-left">
-          <!-- Header -->
-          <p class="about-label">01 · About</p>
+   <section id="about" class="section about-section">
+  <div class="about-wrapper">
 
-          <h2 class="about-title">
-            <span class="about-title-text"></span>
-            <span class="cursor">|</span>
-          </h2>
-
-          <!-- Bio -->
-          <p class="about-bio">
-            I'm Atharv — a <span class="highlight">MERN-focused developer</span> with a passion for creating beautiful, interactive digital experiences. I specialize in turning minimalist design philosophy into expressive, motion-driven web products.
-          </p>
-
-          <!-- Stats Row -->
-          <div class="about-stats">
-            <div class="stat-item">
-              <div class="stat-number">2+</div>
-              <div class="stat-label">Years Experience</div>
-            </div>
-            <div class="stat-item">
-              <div class="stat-number">15+</div>
-              <div class="stat-label">Projects Built</div>
-            </div>
-            <div class="stat-item">
-              <div class="stat-number">100%</div>
-              <div class="stat-label">Client Focused</div>
-            </div>
-          </div>
-
-          <!-- Content Cards Grid -->
-          <div class="about-cards-grid">
-            <!-- Education -->
-            <div class="about-card glass about-card-anim">
-              <div class="card-icon">📚</div>
-              <span class="card-label">Education</span>
-              <p class="card-text">BCA · DAVV University<br><span class="muted-text">2020 – 2023</span></p>
-              <p class="card-text">MCA · SAGE University<br><span class="muted-text">2023 – 2025</span></p>
-            </div>
-
-            <!-- Currently Building -->
-            <div class="about-card glass about-card-anim">
-              <div class="card-icon">⚡</div>
-              <span class="card-label">Focus Areas</span>
-              <p class="card-text">Animated UIs · AI-powered tools · Real-time experiences · E-commerce solutions</p>
-            </div>
-
-            <!-- Tech Stack -->
-            <div class="about-card glass about-card-anim">
-              <div class="card-icon">⚙️</div>
-              <span class="card-label">Tech Stack</span>
-              <p class="card-text"><strong>Frontend:</strong> React, GSAP<br><strong>Backend:</strong> Node.js, Express<br><strong>Database:</strong> MongoDB</p>
-            </div>
-
-            <!-- Passions -->
-            <div class="about-card glass about-card-anim">
-              <div class="card-icon">🎨</div>
-              <span class="card-label">Beyond Code</span>
-              <p class="card-text">Writing songs · Exploring nature · Creating aesthetic visuals · UI/UX design</p>
-            </div>
-          </div>
-
-          <!-- Soft gradient background -->
-          <div class="about-bg-glow"></div>
+    <!-- Orbital Animation Container -->
+    <div class="orbit-container">
+      <div class="orbit-item orbit-item-1">
+        <div class="orbit-icon html-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M3 3h18v18H3z"/>
+            <path d="M7 9h3v6H7M13 9h3v6h-3"/>
+          </svg>
         </div>
-
-        <!-- RIGHT SIDE: Orbital Animation -->
-        <div class="about-right">
-          <div class="orbit-wrapper">
-            <div class="orbit-container">
-              <div class="orbit-item orbit-item-1">
-                <div class="orbit-icon html-icon">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                    <path d="M3 3h18v18H3z"/>
-                    <path d="M7 9h3v6H7M13 9h3v6h-3"/>
-                  </svg>
-                </div>
-              </div>
-              <div class="orbit-item orbit-item-2">
-                <div class="orbit-icon css-icon">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                    <circle cx="12" cy="12" r="8"/>
-                    <circle cx="12" cy="12" r="5"/>
-                    <circle cx="12" cy="12" r="2"/>
-                  </svg>
-                </div>
-              </div>
-              <div class="orbit-item orbit-item-3">
-                <div class="orbit-icon js-icon">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                    <path d="M6 4h12v12H6z"/>
-                    <path d="M9 14v4M15 14v4"/>
-                  </svg>
-                </div>
-              </div>
-              <div class="orbit-item orbit-item-4">
-                <div class="orbit-code-snippet">
-                  <code>const</code>
-                </div>
-              </div>
-              <div class="orbit-item orbit-item-5">
-                <div class="orbit-ui-thumb">UI</div>
-              </div>
-              <div class="orbit-item orbit-item-6">
-                <div class="orbit-circle"></div>
-              </div>
-              <div class="orbit-item orbit-item-7">
-                <div class="orbit-brackets">{}</div>
-              </div>
-            </div>
-            <div class="orbit-glow"></div>
-          </div>
-        </div>
-
       </div>
-    </section>
+      <div class="orbit-item orbit-item-2">
+        <div class="orbit-icon css-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <circle cx="12" cy="12" r="8"/>
+            <circle cx="12" cy="12" r="5"/>
+            <circle cx="12" cy="12" r="2"/>
+          </svg>
+        </div>
+      </div>
+      <div class="orbit-item orbit-item-3">
+        <div class="orbit-icon js-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M6 4h12v12H6z"/>
+            <path d="M9 14v4M15 14v4"/>
+          </svg>
+        </div>
+      </div>
+      <div class="orbit-item orbit-item-4">
+        <div class="orbit-code-snippet">
+          <code>const</code>
+        </div>
+      </div>
+      <div class="orbit-item orbit-item-5">
+        <div class="orbit-ui-thumb">UI</div>
+      </div>
+      <div class="orbit-item orbit-item-6">
+        <div class="orbit-circle"></div>
+      </div>
+      <div class="orbit-item orbit-item-7">
+        <div class="orbit-brackets">{}</div>
+      </div>
+    </div>
+
+    <!-- Header -->
+    <p class="about-label">01 · About</p>
+
+    <h2 class="about-title">
+      <span class="about-title-text"></span>
+      <span class="cursor">|</span>
+    </h2>
+
+    <!-- Description -->
+    <p class="about-desc">
+      I’m Atharv — a MERN-focused web developer, music addict and nature lover. 
+      I create web interfaces that feel like products, not pages — minimal, motion-driven, polished and expressive.
+    </p>
+
+    <!-- Soft gradient background -->
+    <div class="about-bg-glow"></div>
+
+    <!-- Cards -->
+    <div class="about-grid">
+      <div class="about-card glass about-card-anim">
+        <span class="label">Path</span>
+        <p>BCA — DAVV University<br>MCA — SAGE University</p>
+      </div>
+
+      <div class="about-card glass about-card-anim">
+        <span class="label">Currently building</span>
+        <p>Animated UIs, AI-powered tools, real-time web experiences.</p>
+      </div>
+
+      <div class="about-card glass about-card-anim">
+        <span class="label">Outside Code</span>
+        <p>Writing songs, exploring nature, creating aesthetic visuals.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
 
     <!-- PROJECTS -->
     <section id="projects" class="section">
@@ -344,7 +310,7 @@
       <div class="section-body contact-layout">
         <p>
           Want to collaborate on a project, product or idea?<br />
-          I'm open to internships, freelancing and full-time opportunities.
+          I’m open to internships, freelancing and full-time opportunities.
         </p>
         <div class="contact-actions">
           <a href="mailto:iamatharvvyas@gmail.com" class="primary-btn">
