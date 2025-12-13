@@ -145,7 +145,7 @@ function setupAnimations() {
     }
   });
 
-  // ABOUT SECTION - Clean Animation
+  // ABOUT SECTION - Polished Animation
   const aboutSection = document.querySelector("#about");
   if (aboutSection) {
     // Label animation with scroll scrub
@@ -158,84 +158,84 @@ function setupAnimations() {
           trigger: "#about",
           start: "top 80%",
           end: "top 50%",
-          scrub: 1
+          scrub: 1.2
         }
       }
     );
 
-    // Normal words animation - slide up + fade
+    // Normal words - slide up + fade
     gsap.fromTo(".headline-line span:not(.highlight)", 
-      { opacity: 0, y: 60 },
+      { opacity: 0, y: 80 },
       {
         opacity: 1,
         y: 0,
-        stagger: 0.03,
-        scrollTrigger: {
-          trigger: "#about",
-          start: "top 75%",
-          end: "top 45%",
-          scrub: 1.5
-        }
-      }
-    );
-
-    // Highlight words animation - scale + color emphasis
-    gsap.fromTo(".headline-line .highlight", 
-      { 
-        opacity: 0, 
-        y: 60,
-        scale: 0.95,
-        color: "#999"
-      },
-      {
-        opacity: 1,
-        y: 0,
-        scale: 1,
-        color: "#7896FF",
-        stagger: 0.05,
+        stagger: 0.02,
         scrollTrigger: {
           trigger: "#about",
           start: "top 75%",
           end: "top 40%",
-          scrub: 2
+          scrub: 1.8
+        }
+      }
+    );
+
+    // Highlight words - scale + color emphasis
+    gsap.fromTo(".headline-line .highlight", 
+      { 
+        opacity: 0, 
+        y: 80,
+        scale: 0.9,
+        color: "#bbb"
+      },
+      {
+        opacity: 1,
+        y: 0,
+        scale: 1.02,
+        color: "#7896FF",
+        stagger: 0.04,
+        scrollTrigger: {
+          trigger: "#about",
+          start: "top 75%",
+          end: "top 35%",
+          scrub: 2.2
         }
       }
     );
 
     // Description animation
     gsap.fromTo(".about-description", 
-      { opacity: 0, y: 40 },
-      {
-        opacity: 1,
-        y: 0,
-        scrollTrigger: {
-          trigger: "#about",
-          start: "top 60%",
-          end: "top 35%",
-          scrub: 1
-        }
-      }
-    );
-
-    // Tagline animation
-    gsap.fromTo(".about-tagline", 
-      { opacity: 0, y: 30 },
+      { opacity: 0, y: 50 },
       {
         opacity: 1,
         y: 0,
         scrollTrigger: {
           trigger: "#about",
           start: "top 55%",
-          end: "top 30%",
-          scrub: 1
+          end: "top 25%",
+          scrub: 1.5
         }
       }
     );
 
-    // Background gradient animation - minimal vertical drift
+    // Tagline animation
+    gsap.fromTo(".about-tagline", 
+      { opacity: 0, y: 40 },
+      {
+        opacity: 1,
+        y: 0,
+        scrollTrigger: {
+          trigger: "#about",
+          start: "top 50%",
+          end: "top 20%",
+          scrub: 1.8
+        }
+      }
+    );
+
+    // Background gradient - slow vertical drift
     gsap.to(".about-bg-gradient", {
-      y: 50,
-      duration: 8,
+      y: 60,
+      duration: 12,
       repeat: -1,
       yoyo: true,
       ease: "sine.inOut"
