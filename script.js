@@ -107,9 +107,6 @@ function setupAnimations() {
       ".hero-scene",
       { y: 40, opacity: 0, duration: 0.9, ease: "power3.out" },
       "-=0.6"
-
-
-
     );
 
   // sections reveal
@@ -147,396 +144,103 @@ function setupAnimations() {
       });
     }
   });
-  // ABOUT — Typing Animation
-  function typeAboutTitle() {
-    const text = "Inside AT·OS";
-    const target = document.querySelector(".about-title-text");
-    if (!target) return;
 
-    target.innerHTML = "";
-    let i = 0;
-
-    function typing() {
-      if (i < text.length) {
-        target.innerHTML += text.charAt(i);
-        i++;
-        setTimeout(typing, 45);
-      }
-    }
-    typing();
-  }
-
-  ScrollTrigger.create({
-    trigger: "#about",
-    start: "top 85%",
-    once: true,
-    onEnter: () => typeAboutTitle()
-  });
-
-  // ABOUT — Floating Cards Animation (scroll-triggered entrance)
-  gsap.from(".about-card-anim", {
-    scrollTrigger: {
-      trigger: "#about",
-      start: "top 70%",
-      toggleActions: "play none none none"
-    },
-    y: 30,
-    opacity: 0,
-    duration: 0.8,
-    stagger: 0.1,
-    ease: "power3.out"
-  });
-
-  // ==========================
-  // ABOUT SECTION ANIMATIONS
-  // ==========================
-
-  // Typing effect - REMOVED DUPLICATE (already defined above at line 151)
-  // Only one typeAboutTitle function should exist
-  // Calling the first instance at line 173
-
-  // ==REMOVED DUPLICATE: Floating cards animation handled above==
-
-  // ==========================
-  // ABOUT — ADVANCED ANIMATIONS
-  // ==========================
-
-  function setupAboutAnimations() {
-    const aboutSection = document.getElementById("about");
-    if (!aboutSection) return;
-
-    // ===== TITLE REVEAL =====
-    const titleText = document.querySelector(".about-title-text");
-    if (titleText) {
-      gsap.from(titleText, {
+  // ABOUT SECTION - Clean Animation
+  const aboutSection = document.querySelector("#about");
+  if (aboutSection) {
+    // Label animation with scroll scrub
+    gsap.fromTo(".about-label", 
+      { opacity: 0, y: 20 },
+      {
+        opacity: 1,
+        y: 0,
         scrollTrigger: {
-          trigger: ".about-title",
-          start: "top 80%"
-        },
-        opacity: 0,
-        y: 30,
-        duration: 1,
-        ease: "power3.out"
-      });
-    }
-
-    // ===== BIO TEXT ANIMATION =====
-    const bioElement = document.querySelector(".about-bio");
-    if (bioElement) {
-      gsap.from(bioElement, {
-        scrollTrigger: {
-          trigger: ".about-bio",
-          start: "top 80%"
-        },
-        opacity: 0,
-        y: 20,
-        duration: 0.8,
-        delay: 0.2,
-        ease: "power2.out"
-      });
-    }
-
-    // ===== STATS ANIMATION =====
-    const stats = document.querySelectorAll(".stat-item");
-    stats.forEach((stat, i) => {
-      const number = stat.querySelector(".stat-number");
-      
-      gsap.from(stat, {
-        scrollTrigger: {
-          trigger: ".about-stats",
-          start: "top 80%"
-        },
-        opacity: 0,
-        y: 30,
-        duration: 0.7,
-        delay: i * 0.1,
-        ease: "back.out"
-      });
-
-      // Number count animation
-      if (number) {
-        const text = number.textContent;
-        const nums = text.match(/\d+/);
-        if (nums) {
-          gsap.from(
-            { value: 0 },
-            {
-              scrollTrigger: {
-                trigger: ".about-stats",
-                start: "top 80%"
-              },
-              value: parseInt(nums[0]),
-              duration: 1.5,
-              delay: i * 0.1,
-              ease: "power2.out",
-              onUpdate: function() {
-                number.textContent = Math.ceil(this.targets()[0].value) + (text.match(/\D+/g)?.[0] || '');
-              }
-            }
-          );
+          trigger: "#about",
+          start: "top 80%",
+          end: "top 50%",
+          scrub: 1
         }
       }
-    });
+    );
 
-    // ===== CARDS ADVANCED ANIMATION =====
-    const cards = document.querySelectorAll(".about-card");
-    
-    // Entrance animation
-    cards.forEach((card, index) => {
-      gsap.from(card, {
+    // Normal words animation - slide up + fade
+    gsap.fromTo(".headline-line span:not(.highlight)", 
+      { opacity: 0, y: 60 },
+      {
+        opacity: 1,
+        y: 0,
+        stagger: 0.03,
         scrollTrigger: {
-          trigger: ".about-cards-grid",
-          start: "top 75%"
-        },
-        opacity: 0,
+          trigger: "#about",
+          start: "top 75%",
+          end: "top 45%",
+          scrub: 1.5
+        }
+      }
+    );
+
+    // Highlight words animation - scale + color emphasis
+    gsap.fromTo(".headline-line .highlight", 
+      { 
+        opacity: 0, 
         y: 60,
-        rotation: -5 + (index % 2) * 10,
-        duration: 0.9,
-        delay: index * 0.15,
-        ease: "cubic.out"
-      });
-    });
-
-    // ===== ADVANCED CARD HOVER EFFECTS =====
-    cards.forEach((card) => {
-      let isHovering = false;
-
-      card.addEventListener("mouseenter", function() {
-        isHovering = true;
-
-        // Main card lift with advanced shadow
-        gsap.to(card, {
-          y: -20,
-          boxShadow: "0 40px 80px rgba(120, 150, 255, 0.35), inset 0 1px 2px rgba(255, 255, 255, 0.8)",
-          duration: 0.5,
-          ease: "power2.out"
-        });
-
-        // Card tilt
-        gsap.to(card, {
-          rotationX: 8,
-          rotationY: -8,
-          transformPerspective: 1000,
-          duration: 0.5,
-          ease: "power2.out"
-        }, 0);
-
-        // Icon animation
-        const icon = card.querySelector(".card-icon");
-        if (icon) {
-          gsap.to(icon, {
-            scale: 1.4,
-            rotation: 360,
-            duration: 0.6,
-            ease: "back.out"
-          });
-        }
-
-        // Label color shift
-        const label = card.querySelector(".card-label");
-        if (label) {
-          gsap.to(label, {
-            color: "#7896FF",
-            textShadow: "0 0 10px rgba(120, 150, 255, 0.6)",
-            duration: 0.3
-          });
-        }
-
-        // Text highlight animation
-        const texts = card.querySelectorAll(".card-text");
-        texts.forEach((text, i) => {
-          gsap.to(text, {
-            color: "#000000",
-            duration: 0.3,
-            delay: i * 0.05
-          });
-        });
-
-        // Background brighten
-        gsap.to(card, {
-          background: "rgba(255, 255, 255, 0.5)",
-          duration: 0.3
-        });
-      });
-
-      card.addEventListener("mouseleave", function() {
-        isHovering = false;
-
-        // Reset main card
-        gsap.to(card, {
-          y: 0,
-          boxShadow: "0 14px 32px rgba(0, 0, 0, 0.1), inset 0 1px 2px rgba(255, 255, 255, 0.4)",
-          duration: 0.5,
-          ease: "power2.out"
-        });
-
-        // Reset tilt
-        gsap.to(card, {
-          rotationX: 0,
-          rotationY: 0,
-          duration: 0.5,
-          ease: "power2.out"
-        }, 0);
-
-        // Reset icon
-        const icon = card.querySelector(".card-icon");
-        if (icon) {
-          gsap.to(icon, {
-            scale: 1,
-            rotation: 0,
-            duration: 0.5,
-            ease: "back.out"
-          });
-        }
-
-        // Reset label
-        const label = card.querySelector(".card-label");
-        if (label) {
-          gsap.to(label, {
-            color: "#555",
-            textShadow: "none",
-            duration: 0.3
-          });
-        }
-
-        // Reset texts
-        const texts = card.querySelectorAll(".card-text");
-        texts.forEach((text) => {
-          gsap.to(text, {
-            color: "#333",
-            duration: 0.3
-          });
-        });
-
-        // Reset background
-        gsap.to(card, {
-          background: "rgba(255, 255, 255, 0.32)",
-          duration: 0.3
-        });
-      });
-
-      // Click animation with ripple
-      card.addEventListener("click", function(e) {
-        const rect = card.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-
-        // Pulse animation
-        gsap.to(card, {
-          scale: 0.98,
-          duration: 0.1,
-          yoyo: true,
-          repeat: 1
-        });
-
-        // Ripple effect
-        const ripple = document.createElement("div");
-        ripple.style.position = "absolute";
-        ripple.style.left = x + "px";
-        ripple.style.top = y + "px";
-        ripple.style.width = "0px";
-        ripple.style.height = "0px";
-        ripple.style.borderRadius = "50%";
-        ripple.style.backgroundColor = "rgba(120, 150, 255, 0.7)";
-        ripple.style.pointerEvents = "none";
-        ripple.style.transform = "translate(-50%, -50%)";
-        card.style.position = "relative";
-        card.style.overflow = "hidden";
-        card.appendChild(ripple);
-
-        gsap.to(ripple, {
-          width: 600,
-          height: 600,
-          opacity: 0,
-          duration: 0.8,
-          ease: "power2.out",
-          onComplete: () => ripple.remove()
-        });
-      });
-    });
-
-    // ===== ORBITAL ANIMATION =====
-    setupOrbitalAnimation();
-  }
-
-  function setupOrbitalAnimation() {
-    const aboutSection = document.getElementById("about");
-    const orbitalItems = document.querySelectorAll(".orbit-item");
-
-    if (!aboutSection || orbitalItems.length === 0) return;
-
-    // Base dimensions
-    const baseRadius = window.innerWidth > 1024 ? 220 : window.innerWidth > 768 ? 140 : window.innerWidth > 480 ? 100 : 80;
-    let orbitRadius = baseRadius;
-
-    // Update orbit radius on resize
-    const updateOrbitRadius = () => {
-      orbitRadius = window.innerWidth > 1024 ? 220 : window.innerWidth > 768 ? 140 : window.innerWidth > 480 ? 110 : 75;
-    };
-    window.addEventListener("resize", updateOrbitRadius);
-
-    // Position each orbit item in a circle
-    orbitalItems.forEach((item, index) => {
-      const angle = (index / orbitalItems.length) * Math.PI * 2 - Math.PI / 2;
-      const x = Math.cos(angle) * orbitRadius;
-      const y = Math.sin(angle) * orbitRadius;
-
-      gsap.set(item, {
-        x: x,
-        y: y
-      });
-
-      // Micro-floating animation (idle motion)
-      const floatDuration = 4 + Math.random() * 2;
-      const floatDistance = window.innerWidth > 768 ? 4 + Math.random() * 5 : 3 + Math.random() * 3;
-
-      gsap.to(item, {
-        x: x + (Math.random() - 0.5) * floatDistance,
-        y: y + (Math.random() - 0.5) * floatDistance,
-        duration: floatDuration,
-        repeat: -1,
-        yoyo: true,
-        ease: "sine.inOut"
-      });
-    });
-
-    // Scroll-driven orbital rotation
-    gsap.to(".orbit-container", {
-      scrollTrigger: {
-        trigger: "#about",
-        start: "top 40%",
-        end: "bottom 40%",
-        scrub: 1.5
+        scale: 0.95,
+        color: "#999"
       },
-      rotation: 360,
-      ease: "none"
-    });
+      {
+        opacity: 1,
+        y: 0,
+        scale: 1,
+        color: "#7896FF",
+        stagger: 0.05,
+        scrollTrigger: {
+          trigger: "#about",
+          start: "top 75%",
+          end: "top 40%",
+          scrub: 2
+        }
+      }
+    );
 
-    // Orbital items entrance
-    gsap.from(orbitalItems, {
-      scrollTrigger: {
-        trigger: "#about",
-        start: "top 75%"
-      },
-      scale: 0.3,
-      opacity: 0,
-      duration: 0.8,
-      stagger: 0.08,
-      ease: "power2.out"
-    });
- {
-      scrollTrigger: {
-        trigger: "#about",
-        start: "top 60%",
-        end: "bottom 60%",
-        scrub: 1
-      },
-      opacity: 0.6,
+    // Description animation
+    gsap.fromTo(".about-description", 
+      { opacity: 0, y: 40 },
+      {
+        opacity: 1,
+        y: 0,
+        scrollTrigger: {
+          trigger: "#about",
+          start: "top 60%",
+          end: "top 35%",
+          scrub: 1
+        }
+      }
+    );
+
+    // Tagline animation
+    gsap.fromTo(".about-tagline", 
+      { opacity: 0, y: 30 },
+      {
+        opacity: 1,
+        y: 0,
+        scrollTrigger: {
+          trigger: "#about",
+          start: "top 55%",
+          end: "top 30%",
+          scrub: 1
+        }
+      }
+    );
+
+    // Background gradient animation - minimal vertical drift
+    gsap.to(".about-bg-gradient", {
+      y: 50,
+      duration: 8,
+      repeat: -1,
+      yoyo: true,
       ease: "sine.inOut"
     });
   }
-
-  setupOrbitalAnimation();
 
   // project hover lift
   const projects = document.querySelectorAll(".project");
@@ -624,12 +328,13 @@ function setupHeroFX() {
 // Scroll-driven infinite marquee
 function setupInfiniteMarquee() {
   gsap.registerPlugin(ScrollTrigger);
-
+  
   const scrollText = document.querySelector(".scroll-text");
   if (!scrollText) return;
-
+  
+  // Create infinite scroll animation
   gsap.to(scrollText, {
-    x: "-25%",
+    x: "-25%", // Move by 25% since we have 4 repetitions
     ease: "none",
     scrollTrigger: {
       trigger: "#scroll-headline",
@@ -637,7 +342,9 @@ function setupInfiniteMarquee() {
       end: "bottom top",
       scrub: 1,
       onUpdate: (self) => {
-        if (self.progress >= 1) {
+        // Reset position when it reaches the end to create infinite loop
+        const progress = self.progress;
+        if (progress >= 1) {
           gsap.set(scrollText, { x: "0%" });
         }
       }
@@ -645,160 +352,10 @@ function setupInfiniteMarquee() {
   });
 }
 
-// Card animations with GSAP
-function setupCardAnimations() {
-  const cards = document.querySelectorAll(".about-card");
-  
-  // Entrance animation on scroll
-  gsap.from(cards, {
-    scrollTrigger: {
-      trigger: "#about",
-      start: "top 70%",
-      toggleActions: "play none none none"
-    },
-    y: 40,
-    opacity: 0,
-    duration: 0.8,
-    stagger: 0.15,
-    ease: "power3.out"
-  });
-
-  // Hover animations
-  cards.forEach((card, index) => {
-    card.addEventListener("mouseenter", () => {
-      // Lift up and glow
-      gsap.to(card, {
-        y: -15,
-        boxShadow: "0 20px 40px rgba(100, 120, 255, 0.3)",
-        duration: 0.4,
-        ease: "power2.out"
-      });
-
-      // Icon pop animation
-      const icon = card.querySelector(".card-icon");
-      if (icon) {
-        gsap.to(icon, {
-          scale: 1.3,
-          rotation: 8,
-          duration: 0.4,
-          ease: "back.out"
-        });
-      }
-
-      // Text highlight glow
-      const label = card.querySelector(".card-label");
-      if (label) {
-        gsap.to(label, {
-          color: "#7896FF",
-          duration: 0.3
-        });
-      }
-    });
-
-    card.addEventListener("mouseleave", () => {
-      // Return to normal
-      gsap.to(card, {
-        y: 0,
-        boxShadow: "0 8px 24px rgba(0, 0, 0, 0.08)",
-        duration: 0.4,
-        ease: "power2.out"
-      });
-
-      // Reset icon
-      const icon = card.querySelector(".card-icon");
-      if (icon) {
-        gsap.to(icon, {
-          scale: 1,
-          rotation: 0,
-          duration: 0.4,
-          ease: "back.out"
-        });
-      }
-
-      // Reset label color
-      const label = card.querySelector(".card-label");
-      if (label) {
-        gsap.to(label, {
-          color: "#111",
-          duration: 0.3
-        });
-      }
-    });
-
-    // Click ripple effect
-    card.addEventListener("click", function() {
-      const rect = this.getBoundingClientRect();
-      const x = event.clientX - rect.left;
-      const y = event.clientY - rect.top;
-
-      // Create ripple element
-      const ripple = document.createElement("div");
-      ripple.style.position = "absolute";
-      ripple.style.left = x + "px";
-      ripple.style.top = y + "px";
-      ripple.style.width = "10px";
-      ripple.style.height = "10px";
-      ripple.style.borderRadius = "50%";
-      ripple.style.backgroundColor = "rgba(120, 150, 255, 0.6)";
-      ripple.style.pointerEvents = "none";
-      ripple.style.zIndex = "10";
-      this.style.position = "relative";
-      this.style.overflow = "hidden";
-      this.appendChild(ripple);
-
-      // Animate ripple
-      gsap.to(ripple, {
-        width: 400,
-        height: 400,
-        opacity: 0,
-        duration: 0.8,
-        ease: "power2.out",
-        onComplete: () => {
-          ripple.remove();
-        }
-      });
-    });
-  });
-}
-
-// Advanced card gradient animations
-function setupCardGradients() {
-  const cards = document.querySelectorAll(".about-card");
-  
-  cards.forEach((card) => {
-    // Create internal gradient animation on mouse move
-    card.addEventListener("mousemove", (e) => {
-      const rect = card.getBoundingClientRect();
-      const x = ((e.clientX - rect.left) / rect.width) * 100;
-      const y = ((e.clientY - rect.top) / rect.height) * 100;
-
-      // Subtle light shine effect
-      gsap.to(card, {
-        "--shine-x": x + "%",
-        "--shine-y": y + "%",
-        duration: 0.5,
-        overwrite: "auto"
-      });
-    });
-
-    card.addEventListener("mouseleave", () => {
-      gsap.to(card, {
-        "--shine-x": "50%",
-        "--shine-y": "50%",
-        duration: 0.5
-      });
-    });
-  });
-}
-
-// Call functions
 window.addEventListener("load", () => {
   bootAnimation();
   setupNavTriggers();
   setupAnimations();
   setupHeroFX();
   setupInfiniteMarquee();
-  setupAboutAnimations();
-  setupCardAnimations();
-  setupCardGradients();
 });
