@@ -198,8 +198,266 @@ function setupAnimations() {
   // ==REMOVED DUPLICATE: Floating cards animation handled above==
 
   // ==========================
-  // ABOUT — ORBITAL ANIMATION
+  // ABOUT — ADVANCED ANIMATIONS
   // ==========================
+
+  function setupAboutAnimations() {
+    const aboutSection = document.getElementById("about");
+    if (!aboutSection) return;
+
+    // ===== TITLE REVEAL =====
+    const titleText = document.querySelector(".about-title-text");
+    if (titleText) {
+      gsap.from(titleText, {
+        scrollTrigger: {
+          trigger: ".about-title",
+          start: "top 80%"
+        },
+        opacity: 0,
+        y: 30,
+        duration: 1,
+        ease: "power3.out"
+      });
+    }
+
+    // ===== BIO TEXT ANIMATION =====
+    const bioElement = document.querySelector(".about-bio");
+    if (bioElement) {
+      gsap.from(bioElement, {
+        scrollTrigger: {
+          trigger: ".about-bio",
+          start: "top 80%"
+        },
+        opacity: 0,
+        y: 20,
+        duration: 0.8,
+        delay: 0.2,
+        ease: "power2.out"
+      });
+    }
+
+    // ===== STATS ANIMATION =====
+    const stats = document.querySelectorAll(".stat-item");
+    stats.forEach((stat, i) => {
+      const number = stat.querySelector(".stat-number");
+      
+      gsap.from(stat, {
+        scrollTrigger: {
+          trigger: ".about-stats",
+          start: "top 80%"
+        },
+        opacity: 0,
+        y: 30,
+        duration: 0.7,
+        delay: i * 0.1,
+        ease: "back.out"
+      });
+
+      // Number count animation
+      if (number) {
+        const text = number.textContent;
+        const nums = text.match(/\d+/);
+        if (nums) {
+          gsap.from(
+            { value: 0 },
+            {
+              scrollTrigger: {
+                trigger: ".about-stats",
+                start: "top 80%"
+              },
+              value: parseInt(nums[0]),
+              duration: 1.5,
+              delay: i * 0.1,
+              ease: "power2.out",
+              onUpdate: function() {
+                number.textContent = Math.ceil(this.targets()[0].value) + (text.match(/\D+/g)?.[0] || '');
+              }
+            }
+          );
+        }
+      }
+    });
+
+    // ===== CARDS ADVANCED ANIMATION =====
+    const cards = document.querySelectorAll(".about-card");
+    
+    // Entrance animation
+    cards.forEach((card, index) => {
+      gsap.from(card, {
+        scrollTrigger: {
+          trigger: ".about-cards-grid",
+          start: "top 75%"
+        },
+        opacity: 0,
+        y: 60,
+        rotation: -5 + (index % 2) * 10,
+        duration: 0.9,
+        delay: index * 0.15,
+        ease: "cubic.out"
+      });
+    });
+
+    // ===== ADVANCED CARD HOVER EFFECTS =====
+    cards.forEach((card) => {
+      let isHovering = false;
+
+      card.addEventListener("mouseenter", function() {
+        isHovering = true;
+
+        // Main card lift with advanced shadow
+        gsap.to(card, {
+          y: -20,
+          boxShadow: "0 40px 80px rgba(120, 150, 255, 0.35), inset 0 1px 2px rgba(255, 255, 255, 0.8)",
+          duration: 0.5,
+          ease: "power2.out"
+        });
+
+        // Card tilt
+        gsap.to(card, {
+          rotationX: 8,
+          rotationY: -8,
+          transformPerspective: 1000,
+          duration: 0.5,
+          ease: "power2.out"
+        }, 0);
+
+        // Icon animation
+        const icon = card.querySelector(".card-icon");
+        if (icon) {
+          gsap.to(icon, {
+            scale: 1.4,
+            rotation: 360,
+            duration: 0.6,
+            ease: "back.out"
+          });
+        }
+
+        // Label color shift
+        const label = card.querySelector(".card-label");
+        if (label) {
+          gsap.to(label, {
+            color: "#7896FF",
+            textShadow: "0 0 10px rgba(120, 150, 255, 0.6)",
+            duration: 0.3
+          });
+        }
+
+        // Text highlight animation
+        const texts = card.querySelectorAll(".card-text");
+        texts.forEach((text, i) => {
+          gsap.to(text, {
+            color: "#000000",
+            duration: 0.3,
+            delay: i * 0.05
+          });
+        });
+
+        // Background brighten
+        gsap.to(card, {
+          background: "rgba(255, 255, 255, 0.5)",
+          duration: 0.3
+        });
+      });
+
+      card.addEventListener("mouseleave", function() {
+        isHovering = false;
+
+        // Reset main card
+        gsap.to(card, {
+          y: 0,
+          boxShadow: "0 14px 32px rgba(0, 0, 0, 0.1), inset 0 1px 2px rgba(255, 255, 255, 0.4)",
+          duration: 0.5,
+          ease: "power2.out"
+        });
+
+        // Reset tilt
+        gsap.to(card, {
+          rotationX: 0,
+          rotationY: 0,
+          duration: 0.5,
+          ease: "power2.out"
+        }, 0);
+
+        // Reset icon
+        const icon = card.querySelector(".card-icon");
+        if (icon) {
+          gsap.to(icon, {
+            scale: 1,
+            rotation: 0,
+            duration: 0.5,
+            ease: "back.out"
+          });
+        }
+
+        // Reset label
+        const label = card.querySelector(".card-label");
+        if (label) {
+          gsap.to(label, {
+            color: "#555",
+            textShadow: "none",
+            duration: 0.3
+          });
+        }
+
+        // Reset texts
+        const texts = card.querySelectorAll(".card-text");
+        texts.forEach((text) => {
+          gsap.to(text, {
+            color: "#333",
+            duration: 0.3
+          });
+        });
+
+        // Reset background
+        gsap.to(card, {
+          background: "rgba(255, 255, 255, 0.32)",
+          duration: 0.3
+        });
+      });
+
+      // Click animation with ripple
+      card.addEventListener("click", function(e) {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+
+        // Pulse animation
+        gsap.to(card, {
+          scale: 0.98,
+          duration: 0.1,
+          yoyo: true,
+          repeat: 1
+        });
+
+        // Ripple effect
+        const ripple = document.createElement("div");
+        ripple.style.position = "absolute";
+        ripple.style.left = x + "px";
+        ripple.style.top = y + "px";
+        ripple.style.width = "0px";
+        ripple.style.height = "0px";
+        ripple.style.borderRadius = "50%";
+        ripple.style.backgroundColor = "rgba(120, 150, 255, 0.7)";
+        ripple.style.pointerEvents = "none";
+        ripple.style.transform = "translate(-50%, -50%)";
+        card.style.position = "relative";
+        card.style.overflow = "hidden";
+        card.appendChild(ripple);
+
+        gsap.to(ripple, {
+          width: 600,
+          height: 600,
+          opacity: 0,
+          duration: 0.8,
+          ease: "power2.out",
+          onComplete: () => ripple.remove()
+        });
+      });
+    });
+
+    // ===== ORBITAL ANIMATION =====
+    setupOrbitalAnimation();
+  }
 
   function setupOrbitalAnimation() {
     const aboutSection = document.getElementById("about");
@@ -207,7 +465,7 @@ function setupAnimations() {
 
     if (!aboutSection || orbitalItems.length === 0) return;
 
-    // Base dimensions - adjusted for right-side layout
+    // Base dimensions
     const baseRadius = window.innerWidth > 1024 ? 220 : window.innerWidth > 768 ? 140 : window.innerWidth > 480 ? 100 : 80;
     let orbitRadius = baseRadius;
 
@@ -242,23 +500,19 @@ function setupAnimations() {
       });
     });
 
-    // Scroll-driven orbital rotation with continuous spin
-    const tl = gsap.timeline({
+    // Scroll-driven orbital rotation
+    gsap.to(".orbit-container", {
       scrollTrigger: {
         trigger: "#about",
         start: "top 40%",
         end: "bottom 40%",
-        scrub: 1.5,
-        markers: false
-      }
-    });
-
-    tl.to(".orbit-container", {
+        scrub: 1.5
+      },
       rotation: 360,
       ease: "none"
-    }, 0);
+    });
 
-    // Scroll-linked orbit item animations
+    // Orbital items entrance
     gsap.from(orbitalItems, {
       scrollTrigger: {
         trigger: "#about",
@@ -270,9 +524,7 @@ function setupAnimations() {
       stagger: 0.08,
       ease: "power2.out"
     });
-
-    // Optional: Subtle scale and opacity pulse on scroll
-    gsap.to(orbitalItems, {
+ {
       scrollTrigger: {
         trigger: "#about",
         start: "top 60%",
@@ -546,6 +798,7 @@ window.addEventListener("load", () => {
   setupAnimations();
   setupHeroFX();
   setupInfiniteMarquee();
+  setupAboutAnimations();
   setupCardAnimations();
   setupCardGradients();
 });
